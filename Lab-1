@@ -1,0 +1,62 @@
+while True:
+    print("Write infix notated expression or '-exit': ")
+    line = input()
+
+    def Tokenize(line):
+        numbers_buffer = []
+        tokens = []
+        for s in line:
+
+            if s.isdigit():
+                numbers_buffer.append(s)
+
+            elif s == "+" or s == "-" or s == "*" or s =="/" or s == "(" or s ==')' or s == "":
+                if len(numbers_buffer) != 0:
+                    token = ""
+                    for i in numbers_buffer:
+                        token += i
+                        numbers_buffer.clear()
+                        tokens.append(token)
+                if s != '':
+                   tokens.append(s)
+        print(tokens)
+
+        return tokens
+
+    def InfixToPostfix(tokens):
+        postFix = ''
+        s = []
+        for c in tokens:
+            if c in "123456789":
+             postFix += c
+            elif c in "+-":
+                if len(s) == 0:
+                    s.append(c)
+                elif s[0] == '(':
+                    s.append(c)
+            elif c in "*/":
+               if len(s) == 0:
+                   s.append(c)
+               elif s[0] in "+-(":
+                 s.append(c)
+            elif c == "(":
+                s.append(c)
+            elif c == ")":
+                postFix += s.pop()
+                s.pop()
+            else:
+                print("Error")
+
+        print(postFix)
+        return postFix
+
+    def CalsulatePostfix(postfix):
+        print("")
+
+    if line == '-exit':
+        break
+    else:
+        infixTokens = Tokenize(line)
+        postfixTokens = InfixToPostfix(infixTokens)
+        result = CalsulatePostfix(postfixTokens)
+
